@@ -13,6 +13,7 @@ import { supabase } from '@/api/supabase/client'
 import { useParams, useRouter } from "next/navigation"
 import { toast } from 'sonner'
 import MarkdownPreview from '@/components/MarkdownPreview'
+import { formatJSON } from '@/lib/formatJSON'
 
 
 const ChunkPage = () => {
@@ -136,10 +137,16 @@ const ChunkPage = () => {
                     </div>
 
                     <div className="p-3">
-                        <textarea
+                        {/* <textarea
                             className="w-full h-96 border border-border/50 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-primary/20 bg-background text-foreground"
                             placeholder="Enter your text here..."
                             value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
+                        /> */}
+                        <textarea
+                            className="w-full h-96 border border-border/50 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-primary/20 bg-background text-foreground"
+                            placeholder="Enter your text here..."
+                            value={Array.isArray(inputValue) ? formatJSON(inputValue) : inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
                         />
 
