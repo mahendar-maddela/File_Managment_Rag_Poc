@@ -30,11 +30,6 @@ const menuItems = [
     icon: MessageSquare,
   },
   {
-    title: "Chunks",
-    url: "/files/chunck/:id",
-    icon: CheckSquare,
-  },
-  {
     title: "Templates",
     url: "/template",
     icon: LayoutTemplate,

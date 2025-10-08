@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { FileText, Search, Download, Eye, Trash2, Edit } from "lucide-react"
+import { FileText, Search, Download, Eye, Trash2, Edit, Bolt } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { ConfirmationModal } from "@/components/model/ConfirmationModal"
 import { supabase } from "@/api/supabase/client"
@@ -32,16 +32,16 @@ export default function MyFilesContent() {
   const [allFiles, setAllFiles] = useState<any>([]) // full list from Supabase
 
 
-useEffect(() => {
-  if (!searchTerm) {
-    setFiles(allFiles)
-  } else {
-    const filtered = allFiles.filter((file: any) =>
-      file.file_name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    setFiles(filtered)
-  }
-}, [searchTerm, allFiles])
+  useEffect(() => {
+    if (!searchTerm) {
+      setFiles(allFiles)
+    } else {
+      const filtered = allFiles.filter((file: any) =>
+        file.file_name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      setFiles(filtered)
+    }
+  }, [searchTerm, allFiles])
 
   const handleDelete = () => {
     console.log(`Deleting file with ID ${fileToDelete}`)
@@ -62,7 +62,7 @@ useEffect(() => {
   }
 
   const getAllFiles = async () => {
-      setLoading(true)
+    setLoading(true)
     try {
       const { data, error } = await supabase
         .from("fileInfo") // 👈 your table name
@@ -77,7 +77,7 @@ useEffect(() => {
       if (data) {
         setFiles(data)
         setAllFiles(data)
-      // setFiles(data)
+        // setFiles(data)
       }
       console.log(data)
     } catch (error) {
@@ -147,6 +147,18 @@ useEffect(() => {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
+                  {file.chunk_text && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-8 w-8 p-0"
+                      onClick={() => router.push(`/files/chunck/${file.id}`)}
+                    >
+                      <Bolt className="w-4 h-4" />
+                    </Button>
+
+                  )}
+
                   <Button
                     variant="ghost"
                     size="sm"

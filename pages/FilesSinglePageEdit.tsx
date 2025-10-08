@@ -284,7 +284,7 @@ export default function FilesSinglePageEdit() {
         toast.success("Cleaning was successfully completed");
         setIsExtracting(false)
       })
-      .catch((err:any) => {
+      .catch((err: any) => {
         console.error("Error cleaning file:", err);
         setIsExtracting(false)
 
@@ -296,11 +296,25 @@ export default function FilesSinglePageEdit() {
     axiosApiInstance.post(`/files/user_rule_yml`, data).then(() => {
       toast.success("Cleaning Instruction saved");
       setIsModalOpen(false)
-    }).catch((err:any) => {
+    }).catch((err: any) => {
       console.error("Error cleaning file:", err);
 
     })
   }
+
+  const handleChuckSubmit = async () => {
+    setIsExtracting(true)
+    try {
+      const res = await axiosApiInstance.get(`/files/chunk_file/${id}`);
+      if (res) {
+        router.push(`/files/chunck/${id}`);
+      }
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || "Failed to update file data");
+    }
+    setIsExtracting(false)
+  };
+
 
   if (isLoading) return <LoaderComponent />
   if (!fileData) return <NotFound data="File " />
@@ -385,32 +399,17 @@ export default function FilesSinglePageEdit() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <Select value={promptContent} onValueChange={(val) => setPromptContent(val)}>
-                    <SelectTrigger className="w-56">
-                      <SelectValue placeholder="Select Prompt" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="default">Select Model</SelectItem>
-                      {promptTemplate?.map((template: any) => (
-                        <SelectItem key={template.id} value={template.name}>
-                          {template.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+
 
                   {/* Apply button */}
                   <Button
                     variant="outline"
                     className="flex items-center gap-2 bg-primary hover:bg-primary/80 text-white dark:border-border/50"
-                    onClick={() => {
-                      if (promptContent) {
-                        // 👇 do your apply logic here
-                        console.log("Applied:", promptContent);
-                      }
-                    }}
+                    onClick={handleChuckSubmit}
+                    disabled={isExtracting}
                   >
-                    Apply
+                    {isExtracting ? "Chunking..." : "Chunk"}
+
                   </Button>
                 </div>
               </CardTitle>
