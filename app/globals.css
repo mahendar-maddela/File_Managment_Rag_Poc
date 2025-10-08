@@ -1,0 +1,127 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Updated color palette to blue theme */
+  --background: #ffffff; /* White background */
+  --foreground: #475569; /* Dark gray text */
+  --card: #f1f5f9; /* Light gray cards */
+  --card-foreground: #374151; /* Darker gray card text */
+  --popover: #ffffff; /* White popovers */
+  --popover-foreground: #475569; /* Dark gray popover text */
+  --primary: #2563eb; /* Blue primary */
+  --primary-foreground: #ffffff; /* White text on primary */
+  --secondary: #3b82f6; /* Blue accent */
+  --secondary-foreground: #ffffff; /* White text on secondary */
+  --muted: #f1f5f9; /* Light gray muted background */
+  --muted-foreground: #475569; /* Dark gray muted text */
+  --accent: #3b82f6; /* Blue accent color */
+  --accent-foreground: #ffffff; /* White text on accent */
+  --destructive: #dc2626; /* Red for destructive actions */
+  --destructive-foreground: #ffffff; /* White text on destructive */
+  --border: #e5e7eb; /* Light border */
+  --input: #f9fafb; /* Light input background */
+  --ring: #2563eb; /* Blue focus ring */
+  --chart-1: #2563eb; /* Blue chart color 1 */
+  --chart-2: #3b82f6; /* Light blue chart color 2 */
+  --chart-3: #dc2626; /* Red chart color 3 */
+  --chart-4: #0891b2; /* Cyan chart color 4 */
+  --chart-5: #f59e0b; /* Amber chart color 5 */
+  --radius: 0.5rem;
+  --sidebar: #f1f5f9; /* Light gray sidebar */
+  --sidebar-foreground: #475569; /* Dark gray sidebar text */
+  --sidebar-primary: #ffffff; /* White sidebar primary */
+  --sidebar-primary-foreground: #2563eb; /* Blue text on sidebar primary */
+  --sidebar-accent: #3b82f6; /* Blue sidebar accent */
+  --sidebar-accent-foreground: #ffffff; /* White text on sidebar accent */
+  --sidebar-border: #e5e7eb; /* Light sidebar border */
+  --sidebar-ring: #2563eb; /* Blue sidebar focus ring */
+}
+
+.dark {
+  /* Dark mode colors with blue theme */
+  --background: #1f2937; /* Dark gray background */
+  --foreground: #e5e7eb; /* Light gray text */
+  --card: #374151; /* Darker gray card background */
+  --card-foreground: #e5e7eb; /* Light gray card text */
+  --popover: #374151; /* Dark gray popover */
+  --popover-foreground: #e5e7eb; /* Light gray popover text */
+  --primary: #3b82f6; /* Brighter blue primary in dark mode */
+  --primary-foreground: #1f2937; /* Dark text on primary */
+  --secondary: #374151; /* Dark gray secondary */
+  --secondary-foreground: #e5e7eb; /* Light text on secondary */
+  --muted: #374151; /* Dark gray muted background */
+  --muted-foreground: #9ca3af; /* Medium gray muted text */
+  --accent: #3b82f6; /* Blue accent color */
+  --accent-foreground: #1f2937; /* Dark text on accent */
+  --destructive: #ef4444; /* Lighter red for dark mode */
+  --destructive-foreground: #e5e7eb; /* Light text on destructive */
+  --border: #374151; /* Dark gray border */
+  --input: #374151; /* Dark gray input background */
+  --ring: #3b82f6; /* Blue focus ring */
+  --chart-1: #3b82f6; /* Blue chart color 1 */
+  --chart-2: #f59e0b; /* Amber chart color 2 */
+  --chart-3: #ef4444; /* Red chart color 3 */
+  --chart-4: #0891b2; /* Cyan chart color 4 */
+  --chart-5: #8b5cf6; /* Purple chart color 5 */
+  --sidebar: #374151; /* Dark gray sidebar */
+  --sidebar-foreground: #e5e7eb; /* Light gray sidebar text */
+  --sidebar-primary: #3b82f6; /* Blue sidebar primary */
+  --sidebar-primary-foreground: #1f2937; /* Dark text on sidebar primary */
+  --sidebar-accent: #374151; /* Dark gray sidebar accent */
+  --sidebar-accent-foreground: #e5e7eb; /* Light text on sidebar accent */
+  --sidebar-border: #374151; /* Dark gray sidebar border */
+  --sidebar-ring: #3b82f6; /* Blue sidebar focus ring */
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
