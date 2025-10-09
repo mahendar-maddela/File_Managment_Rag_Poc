@@ -14,6 +14,7 @@ import { useParams, useRouter } from "next/navigation"
 import { toast } from 'sonner'
 import MarkdownPreview from '@/components/MarkdownPreview'
 import { formatJSON } from '@/lib/formatJSON'
+import axiosApiInstance from '@/lib/axiosInstance'
 
 
 const ChunkPage = () => {
@@ -99,6 +100,23 @@ const ChunkPage = () => {
         getPromptTemplate();
     }, []);
 
+    const handleApplyPrompt = async () => {
+        setIsLoading(true)
+        try {
+            const res = await axiosApiInstance.post(`/files/prompt/${id}`, {
+                prompt: promptContent
+            })
+            if (res) {
+                getFileData()
+            }
+
+        } catch (error) {
+            console.log(error)
+            setIsLoading(false)
+        }
+        setIsLoading(false)
+    }
+
     return (
         <div className="p-6 space-y-6">
             <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-2">
@@ -117,7 +135,7 @@ const ChunkPage = () => {
                                 <SelectContent>
                                     <SelectItem value="default">Select Model</SelectItem>
                                     {promptTemplate.map((template) => (
-                                        <SelectItem key={template.id} value={template.name}>
+                                        <SelectItem key={template.id} value={template.prompt}>
                                             {template.name}
                                         </SelectItem>
                                     ))}
@@ -127,11 +145,11 @@ const ChunkPage = () => {
                             <Button
                                 variant="outline"
                                 className="flex items-center gap-2 bg-primary hover:bg-primary/80 text-white dark:border-border/50"
-                                onClick={() => {
-                                    console.log("Applied template:", promptContent)
-                                }}
+                                onClick={handleApplyPrompt}
+                                disabled={isLoading}
                             >
-                                Apply
+                               
+                                {isLoading ? "Applying..." : "Apply"}
                             </Button>
                         </div>
                     </div>
