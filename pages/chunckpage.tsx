@@ -148,7 +148,6 @@ const ChunkPage = () => {
                                 onClick={handleApplyPrompt}
                                 disabled={isLoading}
                             >
-                               
                                 {isLoading ? "Applying..." : "Apply"}
                             </Button>
                         </div>
